@@ -3,12 +3,13 @@ const app = express();
 const mongoose = require('mongoose');
 const path = require('path');
 const methodOverride = require('method-override');
+const morgan = require('morgan'); // logging middleware, just for fun
 const cities = require('./seeds/cities');
 const seedHelpers = require('./seeds/seedHelpers');
 //cd C:\\Users\\James\\OneDrive\\Documents\\SCHOOL\\VSCode\\Udemy\\YelpCamp
 const Campground = require('./models/campground');
-
-mongoose.connect('mongodb+srv://jamespitt1:cTiHNKFp4QSL9x6B@cluster0.eimml8f.mongodb.net/?retryWrites=true&w=majority')
+//mongodb://127.0.0.1:27017/yelp-camp
+mongoose.connect('mongodb://127.0.0.1:27017/yelp-camp')
     .then(() => {
         console.log(`Connected to DB: ${mongoose.connection.db.databaseName}`);
     })
@@ -22,18 +23,27 @@ db.once("open", () => {
     console.log("Database connected");
 });
 
+const requestTime = (req, res, next) => {
+    req.requestTime = Date.now();
+    req.realDate = new Date(Date.now()).toLocaleString();
+    console.log(req.realDate);
+    next();
+}
 // APP SETTINGS
 app.set('view engine', 'ejs');
 app.set('path', path.join(__dirname, 'views'));
 // MIDDLEWARE
 app.use(express.urlencoded({extended: true})); // To parse req.body
 app.use(methodOverride('_method')); // To enable PUT/PATCH requests. Pass in string pattern we want app to watch for.
+app.use(morgan('tiny'));
+// 
+
 // ROUTE HANDLING
 app.get('/', (req, res) => {
     res.render('home');
 });
 
-app.get('/campgrounds', async (req, res) => {
+app.get('/campgrounds', requestTime, async (req, res) => {
     const campgrounds = await Campground.find({});
     res.render('campgrounds/index', {campgrounds});
 });
@@ -93,6 +103,9 @@ app.get('/makecampground', async (req, res) => {
     res.send(camp);
 });
 
+app.use((req, res) => {
+    res.status(404).send('Error: Not Found');
+});
 const PORT = 3000;
 app.listen(PORT, () => {
     console.log(`App Connected: ${PORT}`);
