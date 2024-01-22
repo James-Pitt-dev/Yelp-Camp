@@ -1,15 +1,17 @@
 const express = require('express');
-const app = express();
-const mongoose = require('mongoose');
-const path = require('path');
-const methodOverride = require('method-override');
+const app = express(); // use to set up server and listen
+const mongoose = require('mongoose'); // Used as ODM and mongdoDB interaction
+const path = require('path'); //Helps with file paths
+const methodOverride = require('method-override'); // lets you listen for PUT/DELETE requests on POST Reqs
 const morgan = require('morgan'); // logging middleware, just for fun
+const ejsMate = require('ejs-mate'); // lets you use body templates
 const cities = require('./seeds/cities');
-const seedHelpers = require('./seeds/seedHelpers');
+const seedHelpers = require('./seeds/seedHelpers'); // dreate dummy db
 //cd C:\\Users\\James\\OneDrive\\Documents\\SCHOOL\\VSCode\\Udemy\\YelpCamp
-const Campground = require('./models/campground');
+const Campground = require('./models/campground'); //import schema object
 //mongodb://127.0.0.1:27017/yelp-camp
-mongoose.connect('mongodb://127.0.0.1:27017/yelp-camp')
+//mongodb+srv://jamespitt1:cTiHNKFp4QSL9x6B@cluster0.eimml8f.mongodb.net/?retryWrites=true&w=majority
+mongoose.connect('mongodb+srv://jamespitt1:cTiHNKFp4QSL9x6B@cluster0.eimml8f.mongodb.net/?retryWrites=true&w=majority')
     .then(() => {
         console.log(`Connected to DB: ${mongoose.connection.db.databaseName}`);
     })
@@ -30,6 +32,7 @@ const requestTime = (req, res, next) => {
     next();
 }
 // APP SETTINGS
+app.engine('ejs', ejsMate); //tell express we want to use ejs-mate as engine
 app.set('view engine', 'ejs');
 app.set('path', path.join(__dirname, 'views'));
 // MIDDLEWARE
