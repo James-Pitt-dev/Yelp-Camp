@@ -2,6 +2,7 @@ const express = require('express');
 const app = express(); // use to set up server and listen
 const mongoose = require('mongoose'); // Used as ODM and mongdoDB interaction
 const path = require('path'); //Helps with file paths
+const catchAsync = require('./utils/catchAsync');
 const methodOverride = require('method-override'); // lets you listen for PUT/DELETE requests on POST Reqs
 const morgan = require('morgan'); // logging middleware, just for fun
 const ejsMate = require('ejs-mate'); // lets you use body templates
@@ -55,10 +56,15 @@ app.get('/campgrounds/new', (req, res) => {
     res.render('campgrounds/new');
 });
 
-app.post('/campgrounds', async (req, res) => {
-    const campground = new Campground(req.body.campground); // need middleware to parse body (app.use)
-    await campground.save();
-    res.redirect(`campgrounds/${campground._id}`);
+app.post('/campgrounds', async (req, res, next) => {
+    try{
+        const campground = new Campground(req.body.campground); // need middleware to parse body (app.use)
+        await campground.save();
+        res.redirect(`campgrounds/${campground._id}`);
+    } catch(e){
+        next(e);
+    }
+ 
 });
 
 app.get('/campgrounds/:id', async (req, res) => {
@@ -105,6 +111,10 @@ app.get('/makecampground', async (req, res) => {
     await camp.save();
     res.send(camp);
 });
+
+app.use((err, req, res, next) => {
+    res.send('Something went wrong');
+})
 
 app.use((req, res) => {
     res.status(404).send('Error: Not Found');
