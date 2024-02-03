@@ -26,8 +26,10 @@
 
 ## Error Handling
 
-- Wrap your endpoints in try/catch, use next(err)
+- Wrap your endpoints in your catchAsync(async fn...) function. DRY, Clean Code
 - Create utility Error class to gracefully handle errors. DRY
+- throw new ExpressError(msg, code)
+- set up error.ejs route
 ## How To Client-Side Validate Form Inputs?
 
     - https://getbootstrap.com/docs/5.0/forms/validation/
@@ -62,3 +64,8 @@
         })()
 
 -  Place this in a partial on each form page. DRY
+
+## How to Server-Side validate
+- npm i joi, require joi...
+- create Joi schema's that you can use to validate request data
+- 
