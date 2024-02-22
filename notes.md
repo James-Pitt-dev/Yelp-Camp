@@ -67,5 +67,48 @@
 
 ## How to Server-Side validate
 - npm i joi, require joi...
-- create Joi schema's that you can use to validate request data
-- 
+- create Joi schemas.js that you can use to validate request data
+- add a callback option to validate method in the put/post route as middleware
+
+## Functional Requirements
+
+## Non-Functional Requirements
+
+## Tech Stack
+
+
+## Testing
+
+We will employ the standard Arrange, Act, Assert (AAA) testing pattern across various components of our project to ensure clarity, maintainability, and flexibility in our testing suite. This pattern aids in understanding the purpose behind each test and simplifies future updates or changes.
+
+What are the main components we will be testing?
+
+ - API Endpoints
+
+ - Database and System Integrations
+
+ - Front-End Components 
+
+ - Functional and Non-Functional Requirements
+
+ How will we test?
+
+ - Unit Testing:
+    This will cover core functions, the critical units of our project like business logic, database schema constraints, and data processing.
+
+- Integration Testing:
+    This will cover our key system integrations, ensuring databases and servers communicate correctly, and API providers return successfully.
+
+- Front-End Testing:
+    This will cover common user interactions, like form submissions, navigating between routes, and correct rendering of views/UI.
+
+- Manual/System Testing:
+    Conducted periodically by team members to verify the application’s behavior aligns with user expectations and project functional requirements.
+
+Tools:
+ - Jest: A standard testing framework in the NodeJS/Express ecosystem, lends itself well to unit testing and integration testing.
+ - React Testing Library: A standard React testing library, allowing us to simulate user interactions and check for proper rendering of components.
+ - Postman: For manual API testing, Postman allows us to send requests to our server endpoints and inspect the responses without writing any code.
+
+### Continuous Integration
+
