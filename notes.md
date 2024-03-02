@@ -70,45 +70,35 @@
 - create Joi schemas.js that you can use to validate request data
 - add a callback option to validate method in the put/post route as middleware
 
-## Functional Requirements
+### How to create mongoose Schema
+- Import mongoose
+- 
 
-## Non-Functional Requirements
+### Middleware and hooks, kind of like eventListeners.
+ - Mongoose middleware/hooks pre.() post.() allows you to run custom logic when a database operation occurs like CRUD
+ - Delete a campground, run a post function to delete all associated references in review table.
+ - These exist in the model.js so they are tied to the instantiated Model object
+ - Be sure the crud event matches. If you call findByIdAndDelete(id), then you must specify that event in your pre/post args
+ -----------------
+ - Express middleware app.use() intercepts the req/res to also do custom functions when server requests occur
+ - Parse out req.body to json, methodOverride to allow for update/delete on POST reqs
 
-## Tech Stack
+### Express Router
+ - express.Router()
+ - create routes folder with entities /dogs.js, /shelters.js
+ - import router 
+ - instead of app.get, use router.get or post. router.get('/', (req,res) => {}), router.get('/:id', (req,res) => {})
+ - export file
+ - in app.js, import each entity, use as middleware now
+ - app.use('/shelters', shelterRoutes) 
+ - shelterRoutes is the shelters.js, were just intercepting the url pattern, then forwarding it to the route path to be handled.
 
-
-## Testing
-
-We will employ the standard Arrange, Act, Assert (AAA) testing pattern across various components of our project to ensure clarity, maintainability, and flexibility in our testing suite. This pattern aids in understanding the purpose behind each test and simplifies future updates or changes.
-
-What are the main components we will be testing?
-
- - API Endpoints
-
- - Database and System Integrations
-
- - Front-End Components 
-
- - Functional and Non-Functional Requirements
-
- How will we test?
-
- - Unit Testing:
-    This will cover core functions, the critical units of our project like business logic, database schema constraints, and data processing.
-
-- Integration Testing:
-    This will cover our key system integrations, ensuring databases and servers communicate correctly, and API providers return successfully.
-
-- Front-End Testing:
-    This will cover common user interactions, like form submissions, navigating between routes, and correct rendering of views/UI.
-
-- Manual/System Testing:
-    Conducted periodically by team members to verify the application’s behavior aligns with user expectations and project functional requirements.
-
-Tools:
- - Jest: A standard testing framework in the NodeJS/Express ecosystem, lends itself well to unit testing and integration testing.
- - React Testing Library: A standard React testing library, allowing us to simulate user interactions and check for proper rendering of components.
- - Postman: For manual API testing, Postman allows us to send requests to our server endpoints and inspect the responses without writing any code.
-
-### Continuous Integration
-
+ ### Cookies and Express
+ - Adds statefulness to http, ex. to remember a users shopping cart or contents of fields
+ - res.cookie('key', 'value'), will be sent with the response. Third arg is for signing
+ - to req the cookie and access it, need to install cookie-parser. npm i cookie-parser
+ - import it to app, app.use(cookieParser()) //its middleware
+ - ensure authenticaty and integrity with signing cookies. 
+ - sign the cookie on server, send to client, client sends cookie to sever, can check if untampered both ways
+ - add the secret to - app.use(cookierParser(secret))
+ - add sign - req.cookie('name', 'value', {signed: true})

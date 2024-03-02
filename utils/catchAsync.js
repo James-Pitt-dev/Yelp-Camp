@@ -3,3 +3,4 @@ module.exports = function(func){
         func(req, res, next).catch(next);
     }
 }
+
