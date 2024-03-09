@@ -102,3 +102,23 @@
  - sign the cookie on server, send to client, client sends cookie to sever, can check if untampered both ways
  - add the secret to - app.use(cookierParser(secret))
  - add sign - req.cookie('name', 'value', {signed: true})
+ - verify - req.signedCookies
+
+ ### Session
+ - Session is stored on server-side, unlike cookies with client. But stored on a temp database
+ - Server gives client sessionID cookie, client can access the session store with cookie sessionID
+ - session id is a hashed value
+ - npm i express-session, require session
+ - express middleware
+ - app.use(session({secret: 'envExample', OtherOptions})) //look into 'resave: true/false' 'saveUnitialized: true/false' options
+ - Now a session object is attached to the req body. -> req.session
+ - Use in conjunction with redis/mongo session stores for production, ssession data by default is unsecure and unscalable
+ - 
+
+ ### Connect-flash
+ - a flash is a spot in the session to flash a message to the user, like'success', 'failure'. Shows up one time, then goes away
+ - Add to the session => req.flash('success', 'successfuly created!') args are key, value
+ - show it with res.render('view', {messages: req.flash('success')}) pass it through to the view as prop data
+ - in the view.ejs, show it like any other data <= messages >
+
+ 

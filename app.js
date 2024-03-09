@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express(); // use to set up server and listen
 const mongoose = require('mongoose'); // Used as ODM and mongdoDB interaction
+require('dotenv').config();
 const path = require('path'); //Helps with file paths
 const catchAsync = require('./utils/catchAsync');
 const ExpressError = require('./utils/ExpressError');
@@ -12,10 +13,12 @@ const cities = require('./seeds/cities');
 const seedHelpers = require('./seeds/seedHelpers'); // dreate dummy db
 const Campground = require('./models/campground'); //import schema object
 const Review = require('./models/review');
-//cd C:\\Users\\James\\OneDrive\\Documents\\SCHOOL\\VSCode\\Udemy\\YelpCamp
-//mongodb://127.0.0.1:27017/yelp-camp
-//mongodb+srv://jamespitt1:cTiHNKFp4QSL9x6B@cluster0.eimml8f.mongodb.net/?retryWrites=true&w=majority
-mongoose.connect('mongodb+srv://jamespitt1:cTiHNKFp4QSL9x6B@cluster0.eimml8f.mongodb.net/?retryWrites=true&w=majority')
+
+const apiKey = process.env.API_KEY;
+const dbPassword = process.env.DATABASE_PASSWORD;
+
+
+mongoose.connect(dbPassword)
     .then(() => {
         console.log(`Connected to DB: ${mongoose.connection.db.databaseName}`);
     })
