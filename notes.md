@@ -84,14 +84,15 @@
  - Parse out req.body to json, methodOverride to allow for update/delete on POST reqs
 
 ### Express Router
- - express.Router()
+ - express.Router({mergeParams: true}) //allows url params like campgrounds/:id/review to be passed through to route
  - create routes folder with entities /dogs.js, /shelters.js
  - import router 
- - instead of app.get, use router.get or post. router.get('/', (req,res) => {}), router.get('/:id', (req,res) => {})
+ - instead of app.get, use router.get/post. router.get('/', (req,res) => {}), router.get('/:id', (req,res) => {})
  - export file
  - in app.js, import each entity, use as middleware now
  - app.use('/shelters', shelterRoutes) 
  - shelterRoutes is the shelters.js, were just intercepting the url pattern, then forwarding it to the route path to be handled.
+ - (clean up if needed: alter route.js paths and remove /shelters since were already using it. Import depency methods to route.js like catchAsync(), expressError(), import Models, correct paths)
 
  ### Cookies and Express
  - Adds statefulness to http, ex. to remember a users shopping cart or contents of fields
@@ -116,9 +117,21 @@
  - 
 
  ### Connect-flash
- - a flash is a spot in the session to flash a message to the user, like'success', 'failure'. Shows up one time, then goes away
+ - a flash is a spot in the session to flash a message to the user, like'success', 'failure'. Shows up one time on page load, then goes away
  - Add to the session => req.flash('success', 'successfuly created!') args are key, value
  - show it with res.render('view', {messages: req.flash('success')}) pass it through to the view as prop data
  - in the view.ejs, show it like any other data <= messages >
 
- 
+ - Better method is to make the flash values global scope through defining a middleware.
+ - This reduces repeitition from constantly passing flash messages as props to each individual view.
+ - Remove the message prop from views then:
+     app.use((req, res, next) => {
+        res.locals.messages = req.flash(success);
+        next();
+     })
+ - res.locals is an express object you can attach data to, scoped to specific views.
+
+ ### Public dir
+ - use it to include stuff into boilerplate, more separation of concerns.
+ - client-side form val, stylesheets, logos, fonts, audio files, etc. Better performance
+ - set up app.js middleware -> app.use(express.static(path.join(__dirname, 'public'))) //path.join so pathing is consistent across dirs
