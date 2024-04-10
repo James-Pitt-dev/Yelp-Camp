@@ -1,4 +1,13 @@
 # YelpCamp
+![JavaScript](https://img.shields.io/badge/-JavaScript-black?style=flat-square&logo=javascript)
+![HTML5](https://img.shields.io/badge/-HTML5-E34F26?style=flat-square&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/-CSS3-1572B6?style=flat-square&logo=css3)
+![Nodejs](https://img.shields.io/badge/-Nodejs-black?style=flat-square&logo=Node.js)
+![Express.js](https://img.shields.io/badge/-Express.js-black?style=flat-square&logo=express)
+![MongoDB](https://img.shields.io/badge/-MongoDB-black?style=flat-square&logo=mongodb)
+![Mongoose](https://img.shields.io/badge/-Mongoose-black?style=flat-square&logo=mongoose)
+![EJS](https://img.shields.io/badge/-EJS-black?style=flat-square&logo=ejs)
+![Bootstrap](https://img.shields.io/badge/-Bootstrap-563D7C?style=flat-square&logo=bootstrap)
 
 ## What It Does
 YelpCamp is a web application that allows users to share and discover campgrounds. Users can create their own campgrounds, view campgrounds created by others, and leave reviews.
@@ -10,16 +19,6 @@ YelpCamp is a web application that allows users to share and discover campground
 - Mongoose
 - EJS
 - Bootstrap
-## Tech Stack
-![JavaScript](https://img.shields.io/badge/-JavaScript-black?style=flat-square&logo=javascript)
-![HTML5](https://img.shields.io/badge/-HTML5-E34F26?style=flat-square&logo=html5&logoColor=white)
-![CSS3](https://img.shields.io/badge/-CSS3-1572B6?style=flat-square&logo=css3)
-![Nodejs](https://img.shields.io/badge/-Nodejs-black?style=flat-square&logo=Node.js)
-![Express.js](https://img.shields.io/badge/-Express.js-black?style=flat-square&logo=express)
-![MongoDB](https://img.shields.io/badge/-MongoDB-black?style=flat-square&logo=mongodb)
-![Mongoose](https://img.shields.io/badge/-Mongoose-black?style=flat-square&logo=mongoose)
-![EJS](https://img.shields.io/badge/-EJS-black?style=flat-square&logo=ejs)
-![Bootstrap](https://img.shields.io/badge/-Bootstrap-563D7C?style=flat-square&logo=bootstrap)
 
 ## Features
 
