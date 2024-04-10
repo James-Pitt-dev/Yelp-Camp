@@ -1,21 +1,15 @@
-# YelpCamp Project
+# YelpCamp
 
-YelpCamp is a web application that allows users to create, view, edit, and delete campground information. It's a CRUD application built with the MERN stack, tailored for those interested in exploring outdoor camping options and sharing their favorite spots.
+## What It Does
+YelpCamp is a web application that allows users to share and discover campgrounds. Users can create their own campgrounds, view campgrounds created by others, and leave reviews.
 
-## Technologies Used
-
-- HTML: Structure of web pages.
-- CSS: Styling of web pages.
-- JavaScript (JS): Functionality and interactive elements.
-- Node.js: JavaScript runtime for executing JS on the server.
-- Express: Web application framework for Node.js, used to build web applications and APIs.
-- MongoDB: NoSQL database used to store application data.
-- Mongoose: ODM (Object Document Mapper) for MongoDB, providing a schema-based solution to model application data.
-- Bootstrap: Front-end framework for designing responsive and mobile-first websites.
-- EJS (Embedded JavaScript templates): Templating engine for creating HTML markup with plain JavaScript.
-- Method-Override: Middleware to use HTTP verbs such as PUT and DELETE in places where the client doesn't support it.
-- Morgan: HTTP request logger middleware for Node.js.
-- EJS-Mate: Layout support for EJS in Express.
+## Tech Stack
+- **Languages:** JS, HTML, CSS, Node.js
+- Express.js
+- MongoDB
+- Mongoose
+- EJS
+- Bootstrap
 
 ## Features
 
@@ -24,3 +18,13 @@ YelpCamp is a web application that allows users to create, view, edit, and delet
 - Edit existing campground information.
 - Delete campgrounds.
 - Responsive web design for optimal viewing on various devices.
+
+## Architecture
+YelpCamp follows the MVC (Model-View-Controller) architectural pattern. It's a functional programming application where each part of the code has its own job. The model represents the data, the view displays the data, and the controller handles the input.
+
+- **Model:** Mongoose is used as an Object Data Modeling (ODM) library for MongoDB and Node.js. It provides a straightforward, schema-based solution to model your application data.
+- **View:** EJS (Embedded JavaScript) is used as the templating engine to generate HTML markup with plain JavaScript.
+- **Controller:** Express.js is used to handle HTTP requests and responses.
+
+## Database
+The database for YelpCamp is hosted on MongoDB, a source-available cross-platform document-oriented database program. It uses JSON-like documents with optional schemas.

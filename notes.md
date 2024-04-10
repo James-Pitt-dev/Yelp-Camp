@@ -114,7 +114,18 @@
  - app.use(session({secret: 'envExample', OtherOptions})) //look into 'resave: true/false' 'saveUnitialized: true/false' options
  - Now a session object is attached to the req body. -> req.session
  - Use in conjunction with redis/mongo session stores for production, ssession data by default is unsecure and unscalable
- - 
+ - required for authentication
+
+ ### Authentication and Authorization
+ - Authentication = Verifying who a user is, aka username/pass or MFA. Authoriziation = What a user has access to do after being authenticated.
+ - these are async/await functions
+ - Use bcrypt library to generate hashed passwords and compare incoming plaintext to hashed pw's in db
+ - fetch user from db User.findOne({username})
+ - bcrypt.compare(pw, user.pw)
+ - #### Staying logged in with Session
+ - npm i express-session
+ - req.session.user_id = user._id; // give log in ID to session when login or register success. On guarded routes, add cond. to check if     session.userid exists.
+
 
  ### Connect-flash
  - a flash is a spot in the session to flash a message to the user, like'success', 'failure'. Shows up one time on page load, then goes away

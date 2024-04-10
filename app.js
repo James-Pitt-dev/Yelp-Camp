@@ -8,7 +8,8 @@ const { campgroundSchema, reviewSchema } = require('./schemas.js');
 const methodOverride = require('method-override'); // lets you listen for PUT/DELETE requests on POST Reqs
 const morgan = require('morgan'); // logging middleware, just for fun
 const ejsMate = require('ejs-mate'); // lets you use body templates
-
+const session = require('express-session');
+const flash = require('connect-flash');
 const campgrounds = require('./routes/campgrounds');
 const reviews = require('./routes/reviews');
 
@@ -34,15 +35,37 @@ db.once("open", () => {
 app.engine('ejs', ejsMate); //tell express we want to use ejs-mate as engine
 app.set('view engine', 'ejs');
 app.set('path', path.join(__dirname, 'views'));
+
 // MIDDLEWARE
 app.use(express.urlencoded({extended: true})); // To parse req.body
 app.use(methodOverride('_method')); // To enable PUT/PATCH requests. Pass in string pattern we want app to watch for.
 app.use(morgan('tiny'));
-app.use(express.static(path.join(__dirname, 'public')));
-// 
+app.use(express.static(path.join(__dirname, 'public')));  //
+const sessionConfig = { //initialize session with some options
+    secret: 'test',
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        httpOnly: true,
+        expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+        maxAge: 1000 * 60 * 60 * 24 * 7
+    }
+    //store: mongodb
+
+}
+app.use(session(sessionConfig));
+app.use(flash()); //make another middleware to store flash(key, values) for global access rather than passing to each route
+app.use((req, res, next) => { 
+    //the flash global middleware. On every req, takes the defined key:value stored in req, then appends it to the locals object 
+    // that all views have access to by default.                           
+    res.locals.success = req.flash('success');
+    res.locals.error = req.flash('error'); // if no req(error) exists, it does nothing. Predefine your flash msgs
+    next();
+})
+// Routing
 app.use('/campgrounds', campgrounds);
 app.use('/campgrounds/:id/reviews', reviews);
-// ROUTE HANDLING
+
 app.get('/', (req, res) => {
     res.render('home');
 });

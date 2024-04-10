@@ -1,5 +1,5 @@
 const Joi = require('joi');
-
+//Use this schematic for validation of model definitions when POST'ing to DB, just another layer of validating requirements.
 module.exports.campgroundSchema = Joi.object({
     campground: Joi.object({
         title: Joi.string().required(),
