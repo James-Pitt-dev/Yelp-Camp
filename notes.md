@@ -122,11 +122,32 @@
  - Use bcrypt library to generate hashed passwords and compare incoming plaintext to hashed pw's in db
  - fetch user from db User.findOne({username})
  - bcrypt.compare(pw, user.pw)
- - #### Staying logged in with Session
+ #### System Design of Auth/Authoriz.
+ - Set up 4-5 routes like log in/out
+ - Serve the form to register     
+ - Establish middleware to force you to log in for some routes
+ - Then set up authorization for content, someone owns a review, someone owns a campground
+ - Tie methods to the user model
+ ##### Staying logged in with Session
  - npm i express-session
- - req.session.user_id = user._id; // give log in ID to session when login or register success. On guarded routes, add cond. to check if     session.userid exists.
+ - req.session.user_id = user._id; // give log in ID to session when login or register success. On guarded routes, add cond. to check if session.userid exists.
+ #### Logging out with session
+ - since sessionID is attached to req.body, it gets checked for valid hash every request. On log out, set sessionID = null.
+ - Do this by: 
+    - Making a post route --> POST /logout
+    - req.session.user_id = null OR req.sessions.destroy() to clear other info in there
+    - redirect('/home');
+    - Now make a view and a form to send that post request. < form action='logout' method=post>< button>< /form>
+ - Best to move this to a middleware if more routes to protect. DRY
+    - const requireMiddleware = 
+    - (r,r,n) => {if (!req.session.user_id) {return redirect them} else next()}
+    - now add that middleware to the routes you require log in for
+ - Move it to Model. Even DRYer   
 
-
+#### Library for this whole auth issue: Passport
+- Its the thing that lets you log in via google, facebook, twitter, local, etc
+- npm i passport passport-local passport-local-mongoose       
+s
  ### Connect-flash
  - a flash is a spot in the session to flash a message to the user, like'success', 'failure'. Shows up one time on page load, then goes away
  - Add to the session => req.flash('success', 'successfuly created!') args are key, value
