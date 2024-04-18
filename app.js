@@ -10,8 +10,12 @@ const morgan = require('morgan'); // logging middleware, just for fun
 const ejsMate = require('ejs-mate'); // lets you use body templates
 const session = require('express-session');
 const flash = require('connect-flash');
+const passport = require('passport');
+const LocalStrategy = require('passport-local');
+
 const campgrounds = require('./routes/campgrounds');
 const reviews = require('./routes/reviews');
+const User = require('./models/user.js');
 
 const apiKey = process.env.API_KEY;
 const dbPassword = process.env.DATABASE_PASSWORD;
@@ -54,6 +58,11 @@ const sessionConfig = { //initialize session with some options
 
 }
 app.use(session(sessionConfig));
+
+app.use(passport.initialize()); //initialize it and use session for persistent log in
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+
 app.use(flash()); //make another middleware to store flash(key, values) for global access rather than passing to each route
 app.use((req, res, next) => { 
     //the flash global middleware. On every req, takes the defined key:value stored in req, then appends it to the locals object 

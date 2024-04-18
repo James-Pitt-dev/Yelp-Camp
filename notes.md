@@ -147,7 +147,7 @@
 #### Library for this whole auth issue: Passport
 - Its the thing that lets you log in via google, facebook, twitter, local, etc
 - npm i passport passport-local passport-local-mongoose       
-s
+- 
  ### Connect-flash
  - a flash is a spot in the session to flash a message to the user, like'success', 'failure'. Shows up one time on page load, then goes away
  - Add to the session => req.flash('success', 'successfuly created!') args are key, value
