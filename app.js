@@ -61,7 +61,9 @@ app.use(session(sessionConfig));
 
 app.use(passport.initialize()); //initialize it and use session for persistent log in
 app.use(passport.session());
-passport.use(new LocalStrategy(User.authenticate()));
+passport.use(new LocalStrategy(User.authenticate())); // tell it to use local strat and use user model auth
+passport.serializeUser(User.serializeUser()); //how d we store a user in session?
+passport.deserializeUser(User.deserializeUser());
 
 app.use(flash()); //make another middleware to store flash(key, values) for global access rather than passing to each route
 app.use((req, res, next) => { 
@@ -71,6 +73,16 @@ app.use((req, res, next) => {
     res.locals.error = req.flash('error'); // if no req(error) exists, it does nothing. Predefine your flash msgs
     next();
 })
+
+app.get('/fakeUser', async (req, res) => {
+    const user = new User({
+        email: '123@gmail.com',
+        username: '123'
+    });
+    const newUser = await User.register(user, 'chicken');
+    res.send(newUser);
+});
+
 // Routing
 app.use('/campgrounds', campgrounds);
 app.use('/campgrounds/:id/reviews', reviews);
