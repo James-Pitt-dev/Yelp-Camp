@@ -144,10 +144,12 @@
     - now add that middleware to the routes you require log in for
  - Move it to Model. Even DRYer   
 
-#### Library for this whole auth issue: Passport
+#### Passport
 - Its the thing that lets you log in via google, facebook, twitter, local, etc
 - npm i passport passport-local passport-local-mongoose       
-- 
+- in user model: require passportlocalmongoose, UserSchema.plugin(passportLocalMongoose)
+- in app.use, initialize(), passport.use(new strat(auth))
+- passport.serialise(User.serializeUser) + deserialize //handles session
  ### Connect-flash
  - a flash is a spot in the session to flash a message to the user, like'success', 'failure'. Shows up one time on page load, then goes away
  - Add to the session => req.flash('success', 'successfuly created!') args are key, value

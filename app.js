@@ -13,8 +13,10 @@ const flash = require('connect-flash');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 
-const campgrounds = require('./routes/campgrounds');
-const reviews = require('./routes/reviews');
+const userRoutes = require('./routes/users');
+const campgroundsRoutes = require('./routes/campgrounds');
+const reviewsRoutes = require('./routes/reviews');
+
 const User = require('./models/user.js');
 
 const apiKey = process.env.API_KEY;
@@ -84,8 +86,9 @@ app.get('/fakeUser', async (req, res) => {
 });
 
 // Routing
-app.use('/campgrounds', campgrounds);
-app.use('/campgrounds/:id/reviews', reviews);
+app.use('/', userRoutes);
+app.use('/campgrounds', campgroundsRoutes);
+app.use('/campgrounds/:id/reviews', reviewsRoutes);
 
 app.get('/', (req, res) => {
     res.render('home');
