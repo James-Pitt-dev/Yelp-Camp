@@ -3,6 +3,7 @@ const router = express.Router({mergeParams: true});
 const catchAsync = require('../utils/catchAsync');
 const ExpressError = require('../utils/ExpressError');
 const User = require('../models/user');
+const passport = require('passport');
 // const { userSchema } = require('../schemas.js');
 
 router.get('/register', (req, res) => {
@@ -20,6 +21,13 @@ router.post('/register', catchAsync(async (req, res) => {
         req.flash('error', e.message);
         res.redirect('register');
     }
+}));
+
+router.get('/login', (req, res) => {
+    res.render('users/login');
+});
+router.post('/login', passport.authenticate(), catchAsync(async (req, res) => {
+
 }));
 
 module.exports = router;
