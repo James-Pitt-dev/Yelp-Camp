@@ -43,4 +43,9 @@ router.get('/logout', (req, res, next) => {
     });
 }); 
 
+// if (!req.isAuthenticated()){
+//     req.flash('error', 'Logout Failed: You Are Not Logged In');
+//    return res.redirect('/campgrounds');
+// }
+
 module.exports = router;
