@@ -150,6 +150,17 @@
 - in user model: require passportlocalmongoose, UserSchema.plugin(passportLocalMongoose)
 - in app.use, initialize(), passport.use(new strat(auth))
 - passport.serialise(User.serializeUser) + deserialize //handles session
+#### Log In with Passport
+- passport has middleware to place in a POST /login route
+- passport.authenticate('local', {failureFlash: true, failureRedirect: '/login'})
+#### Authorization with Passport/session
+- What does it mean to be logged in?:
+    - Protect routes with sign in requirement
+    - Use passport helper method -> req.isAuthenticated()
+    - Define it as middleware and place it in routes to protect   
+    - an example is a user has to be logged in, so place middleware in review and campground routes to protect them. Define it in a helper function/middleware file and export for DRY.
+    - protect all routes so a user cant bypass and send directly from postman
+    - example: require login to view new campground page, but dont require it for POST /campgrounds/new, a user can just directly send request to POST without log in so protect both.
  ### Connect-flash
  - a flash is a spot in the session to flash a message to the user, like'success', 'failure'. Shows up one time on page load, then goes away
  - Add to the session => req.flash('success', 'successfuly created!') args are key, value

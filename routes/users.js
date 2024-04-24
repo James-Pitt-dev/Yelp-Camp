@@ -12,10 +12,10 @@ router.get('/register', (req, res) => {
 
 router.post('/register', catchAsync(async (req, res) => {  
     try {
-        const {email, username, password} = req.body.campground;
+        const {email, username, password} = req.body;
         const user = new User({email, username});
         const registeredUser = await User.register(user, password);
-        req.flash('success', 'Welcome to Yelp Camp! ' + user.username);
+        req.flash('success', 'Welcome to Yelp Camp!');
         res.redirect('/campgrounds');
     } catch(e) {
         req.flash('error', e.message);
@@ -26,8 +26,21 @@ router.post('/register', catchAsync(async (req, res) => {
 router.get('/login', (req, res) => {
     res.render('users/login');
 });
-router.post('/login', passport.authenticate(), catchAsync(async (req, res) => {
-
+// call passport authenticate method, using the local or google or whatever strategy, 
+router.post('/login', passport.authenticate('local', {failureFlash: true, failureRedirect: '/login'}), catchAsync(async (req, res) => {
+//if they make it into this route, we know they were successfully authenticated.
+    req.flash('success', 'Welcome Back!');
+    res.redirect('/campgrounds');
 }));
+
+router.get('/logout', (req, res, next) => {
+    req.logout(function (err) {
+        if (err) {
+            return next(err);
+        }
+        req.flash('success', 'Goodbye!');
+        res.redirect('/campgrounds');
+    });
+}); 
 
 module.exports = router;
