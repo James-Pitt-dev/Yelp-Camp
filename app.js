@@ -73,6 +73,7 @@ app.use((req, res, next) => {
     // that all views have access to by default.                           
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error'); // if no req(error) exists, it does nothing. Predefine your flash msgs
+    res.locals.currentUser = req.user; //add a global curUser object so log in status can be checked across pages.
     next();
 })
 
