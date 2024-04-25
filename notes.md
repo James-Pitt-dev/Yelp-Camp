@@ -161,6 +161,10 @@
     - an example is a user has to be logged in, so place middleware in review and campground routes to protect them. Define it in a helper function/middleware file and export for DRY.
     - protect all routes so a user cant bypass and send directly from postman
     - example: require login to view new campground page, but dont require it for POST /campgrounds/new, a user can just directly send request to POST without log in so protect both.
+#### Auth/Author Misc
+ - show/hide elements based on log in status. If logged in, no need to see a logout anchor on navbar
+   - Add to res.locals middleware. res.locals.currentUser = req.user (the 'user'git  is added on from passport plugin)
+   - Now all app can see that data, ejs in navbar to do if/else html
  ### Connect-flash
  - a flash is a spot in the session to flash a message to the user, like'success', 'failure'. Shows up one time on page load, then goes away
  - Add to the session => req.flash('success', 'successfuly created!') args are key, value
