@@ -35,6 +35,7 @@ router.get('/login', (req, res) => {
 // call passport authenticate method, using the local or google or whatever strategy, 
 router.post('/login', passport.authenticate('local', {failureFlash: true, failureRedirect: '/login'}), catchAsync(async (req, res) => {
 //if they make it into this route, we know they were successfully authenticated.
+    req.session.returnTo = req.originalURL;
     req.flash('success', 'Welcome Back!');
     res.redirect('/campgrounds');
 }));
