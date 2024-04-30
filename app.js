@@ -45,7 +45,7 @@ app.set('path', path.join(__dirname, 'views'));
 // MIDDLEWARE
 app.use(express.urlencoded({extended: true})); // To parse req.body
 app.use(methodOverride('_method')); // To enable PUT/PATCH requests. Pass in string pattern we want app to watch for.
-app.use(morgan('tiny'));
+// app.use(morgan('tiny'));
 app.use(express.static(path.join(__dirname, 'public')));  //
 const sessionConfig = { //initialize session with some options
     secret: 'test',
@@ -70,10 +70,10 @@ passport.deserializeUser(User.deserializeUser());
 app.use(flash()); //make another middleware to store flash(key, values) for global access rather than passing to each route
 app.use((req, res, next) => { 
     //the flash global middleware. On every req, takes the defined key:value stored in req, then appends it to the locals object 
-    // that all views have access to by default.                           
+    // that all views have access to by default.   
+    res.locals.currentUser = req.user; //add a global curUser object so log in status can be checked across pages.                        
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error'); // if no req(error) exists, it does nothing. Predefine your flash msgs
-    res.locals.currentUser = req.user; //add a global curUser object so log in status can be checked across pages.
     next();
 })
 
