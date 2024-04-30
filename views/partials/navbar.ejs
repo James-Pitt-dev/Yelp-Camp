@@ -17,7 +17,9 @@
           <a href="/login" class="nav-link">Log In</a>
           <a href="/register" class="nav-link">| Register |</a>
           <% } %>
+          <% if(currentUser){ %>
           <a href="/logout" class="nav-link">Log Out</a>
+          <% } %>
         </div>
       </div>
     </div>

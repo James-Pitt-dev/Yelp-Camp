@@ -4,6 +4,7 @@ const catchAsync = require('../utils/catchAsync');
 const ExpressError = require('../utils/ExpressError');
 const User = require('../models/user');
 const passport = require('passport');
+const { storeReturnTo } = require('../middleware');
 // const { userSchema } = require('../schemas.js');
 
 router.get('/register', (req, res) => {
@@ -33,10 +34,12 @@ router.get('/login', (req, res) => {
     res.render('users/login');
 });
 // call passport authenticate method, using the local or google or whatever strategy, 
-router.post('/login', passport.authenticate('local', {failureFlash: true, failureRedirect: '/login'}), catchAsync(async (req, res) => {
+router.post('/login', storeReturnTo, passport.authenticate('local', {failureFlash: true, failureRedirect: '/login'}), catchAsync(async (req, res) => {
 //if they make it into this route, we know they were successfully authenticated.
+    const redirectURL = res.locals.returnTo || '/campgrounds';
+    delete req.session.returnTo;
     req.flash('success', 'Welcome Back!');
-    res.redirect('/campgrounds');
+    res.redirect(redirectURL);
 }));
 
 router.get('/logout', (req, res, next) => {
