@@ -180,6 +180,14 @@
      })
  - res.locals is an express object you can attach data to, scoped to specific views.
 
+ #### Authorization: Associating campground with user foreign key
+ - Add author: {type, ref} to the campground schema, in campgrounds/show chain on .populate('author') when the campground is being fetched. Now the campground objects come with the foreign key table data like author/username.
+ - Now need to add the currently logged in userID to each newly created campground, remmeber that to be on the /new route, you have to have been logged in.
+  - on POST /new campground, grab the user id and add it to the campground.author object prior to save()
+        const campground = new Campground(req.body.campground);
+        campground.author = user._id;
+        await campground.save();
+
  ### Public dir
  - use it to include stuff into boilerplate, more separation of concerns.
  - client-side form val, stylesheets, logos, fonts, audio files, etc. Better performance
