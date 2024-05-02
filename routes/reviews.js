@@ -5,24 +5,14 @@ const ExpressError = require('../utils/ExpressError');
 const Campground = require('../models/campground'); //import schema object
 const Review = require('../models/review');
 const { reviewSchema } = require('../schemas.js');
+const {validateReview, isLoggedIn} = require('../middleware.js');
 
-
-const validateReview = (req, res, next) => {
-    const {error} = reviewSchema.validate(req.body);
-    if(error){
-        const msg = error.details.map(el => el.message).join(',');
-        throw new ExpressError(msg, 400);
-    } else {
-        next();
-    }
-}
-
-router.post('/', validateReview, catchAsync(async (req, res) => {
+router.post('/', isLoggedIn, validateReview, catchAsync(async (req, res) => {
     const {id} = req.params;
     const campground = await Campground.findById(id);
     const review = new Review(req.body.review);
+    review.author = req.user._id; //after review is validated, add the currentUser ID to review data
     campground.reviews.push(review);
-
     await Promise.all([
             review.save(),
         campground.save()

@@ -187,7 +187,19 @@
         const campground = new Campground(req.body.campground);
         campground.author = user._id;
         await campground.save();
-
+#### Authorization: Associating reviews with authors on campground show
+- add author field to review model
+- only show review box to loggedin users
+- on campground show : 
+populate({
+        path: 'reviews', 
+        populate: {
+            path: 'author'
+        }}).populate('author');
+#### Authorization: Permissions, making sure a user cant delete or edit another users campground
+- First hide the options on client side by conditionals in the view so that if currUser != campground.author.
+- Now hide on server side so attacker cant just send a raw POST req to server and bypass UI.
+- Middleware needed: isAuthor added to protected routes
  ### Public dir
  - use it to include stuff into boilerplate, more separation of concerns.
  - client-side form val, stylesheets, logos, fonts, audio files, etc. Better performance

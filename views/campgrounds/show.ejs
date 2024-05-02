@@ -13,6 +13,7 @@
               <li class="list-group-item">Submitted by <%= campground.author.username %></li>
               <li class="list-group-item"><%= campground.price %>$/night</li>
             </ul>
+            <% if(currentUser && currentUser._id.toString() === campground.author._id.toString()){ %>
             <div class="card-body">
                 <a class="card-link btn btn-info" href="/campgrounds/<%= campground._id %>/edit">Edit</a>         
         <!-- method-override with ?_method=DELETE, send to app.delete() -->
@@ -20,6 +21,7 @@
                     <button class="btn btn-danger" type="submit">Delete</button>
                     </form>
             </div>
+            <% } %>
             <div class="card-footer text-muted">
                 2 Days ago
             </div>
@@ -28,6 +30,8 @@
 
     </div>
     <div class="col-6">
+        <!-- check if logged in, when logged in, a currentUser object is appended to session or req idk -->
+        <% if(currentUser){ %> 
         <h2>Leave a Review</h2>
         <form action="/campgrounds/<%= campground._id %>/reviews" method="POST" class="mb-3 validated-form" novalidate>
             <div class="mb-3">
@@ -43,6 +47,7 @@
             </div>
             <button class="btn btn-success">Submit</button>
         </form>
+        <% } %>
         <% for (let rev of campground.reviews){ %>
             <div class="card mb-3">
         <div class="card-body">
