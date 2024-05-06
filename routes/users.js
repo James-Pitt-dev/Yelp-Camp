@@ -6,51 +6,18 @@ const User = require('../models/user');
 const passport = require('passport');
 const { storeReturnTo } = require('../middleware');
 // const { userSchema } = require('../schemas.js');
+const users = require('../controllers/users');
 
-router.get('/register', (req, res) => {
-    res.render('users/register');
-})
+router.get('/register', users.renderRegister)
 
-router.post('/register', catchAsync(async (req, res) => {  
-    try {
-        const {email, username, password} = req.body;
-        const user = new User({email, username});
-        const registeredUser = await User.register(user, password);
-        req.login(registeredUser, (err) => {
-            if(err){
-                return next(err);
-            } else {
-                req.flash('success', 'Welcome to Yelp Camp!');
-                res.redirect('/campgrounds');
-            }    
-        });
-    } catch(e) {
-        req.flash('error', e.message);
-        res.redirect('register');
-    }
-}));
+router.post('/register', catchAsync(users.registerUser));
 
-router.get('/login', (req, res) => {
-    res.render('users/login');
-});
+router.get('/login', users.renderLogin);
+
 // call passport authenticate method, using the local or google or whatever strategy, 
-router.post('/login', storeReturnTo, passport.authenticate('local', {failureFlash: true, failureRedirect: '/login'}), catchAsync(async (req, res) => {
-//if they make it into this route, we know they were successfully authenticated.
-    const redirectURL = res.locals.returnTo || '/campgrounds';
-    delete req.session.returnTo;
-    req.flash('success', 'Welcome Back!');
-    res.redirect(redirectURL);
-}));
+router.post('/login', storeReturnTo, passport.authenticate('local', {failureFlash: true, failureRedirect: '/login'}), catchAsync(users.login));
 
-router.get('/logout', (req, res, next) => {
-    req.logout(function (err) {
-        if (err) {
-            return next(err);
-        }
-        req.flash('success', 'Goodbye!');
-        res.redirect('/campgrounds');
-    });
-}); 
+router.get('/logout', users.logout); 
 
 // if (!req.isAuthenticated()){
 //     req.flash('error', 'Logout Failed: You Are Not Logged In');
