@@ -93,6 +93,7 @@
  - app.use('/shelters', shelterRoutes) 
  - shelterRoutes is the shelters.js, were just intercepting the url pattern, then forwarding it to the route path to be handled.
  - (clean up if needed: alter route.js paths and remove /shelters since were already using it. Import depency methods to route.js like catchAsync(), expressError(), import Models, correct paths)
+ - order of routes matter
 
  ### Cookies and Express
  - Adds statefulness to http, ex. to remember a users shopping cart or contents of fields
@@ -204,3 +205,20 @@ populate({
  - use it to include stuff into boilerplate, more separation of concerns.
  - client-side form val, stylesheets, logos, fonts, audio files, etc. Better performance
  - set up app.js middleware -> app.use(express.static(path.join(__dirname, 'public'))) //path.join so pathing is consistent across dirs
+
+### Controllers
+- define a controllers dir for each entity/route
+- migrate your route logic into this to make things more concise
+    - router.get('/register', users.renderRegister); 
+- much more concise than : 
+-   app.get((req, res) => {
+    res.render('users/register');
+    });
+- remember to import/require the correct modules
+#### Fancy Controllers
+- Its possible to make things even more concise by grouping http verbs under one route. You can chain on verbs for that route. This would be in the routes dir after controllers are finished.
+- router.route('/')
+    .get(catchAsync(campgrounds.index))
+    .post(middleware, middleware, campgrounds.createCampground);
+- This is more concise but optional
+- Consider it if you have many duplicate routes like a put, delete, get on a '/:id' route
