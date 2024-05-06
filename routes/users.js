@@ -8,7 +8,7 @@ const { storeReturnTo } = require('../middleware');
 // const { userSchema } = require('../schemas.js');
 const users = require('../controllers/users');
 
-router.get('/register', users.renderRegister)
+router.get('/register', users.renderRegister);
 
 router.post('/register', catchAsync(users.registerUser));
 
