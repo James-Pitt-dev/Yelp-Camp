@@ -1,7 +1,9 @@
+if(process.env.NODE_ENV !== "production"){
+    require('dotenv').config();
+}
 const express = require('express');
 const app = express(); // use to set up server and listen
 const mongoose = require('mongoose'); // Used as ODM and mongdoDB interaction
-require('dotenv').config();
 const path = require('path'); //Helps with file paths
 const ExpressError = require('./utils/ExpressError');
 const { campgroundSchema, reviewSchema } = require('./schemas.js');

@@ -206,7 +206,7 @@ populate({
  - client-side form val, stylesheets, logos, fonts, audio files, etc. Better performance
  - set up app.js middleware -> app.use(express.static(path.join(__dirname, 'public'))) //path.join so pathing is consistent across dirs
 
-### Controllers
+## Controllers
 - define a controllers dir for each entity/route
 - migrate your route logic into this to make things more concise
     - router.get('/register', users.renderRegister); 
@@ -222,3 +222,9 @@ populate({
     .post(middleware, middleware, campgrounds.createCampground);
 - This is more concise but optional
 - Consider it if you have many duplicate routes like a put, delete, get on a '/:id' route
+
+## Image Upload
+- store the url in your db, the url points to an upload bucket like aws or w/e
+- default forms cant handle file data so set attr enctype="multi/...", create an input:f. default forms want urlencoded stuff
+- Need to install a package to parse the request body, use npm multer. This gives a middleware that appends an object to the request, this object can contain the files uploaded through the form.
+- check the docs

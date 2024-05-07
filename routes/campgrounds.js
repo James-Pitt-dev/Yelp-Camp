@@ -6,6 +6,8 @@ const { campgroundSchema } = require('../schemas.js');
 const {isLoggedIn, isAuthor, validateCampground} = require('../middleware.js');
 // controllers
 const campgrounds = require('../controllers/campgrounds.js');
+const multer  = require('multer')
+const upload = multer({ dest: 'uploads/' })
 
 const requestTime = (req, res, next) => { // unnecessary, just cool. Logs date when client connects
     req.requestTime = Date.now();
