@@ -7,7 +7,6 @@ module.exports.index = async (req, res) => {
 };
 
 module.exports.renderNewForm = (req, res) => {
-    console.log(req.session);
     res.render('campgrounds/new');
 };
 
@@ -27,7 +26,6 @@ module.exports.showCampground = async (req, res) => {
         populate: {
             path: 'author'
         }}).populate('author');
-    console.log(campground);
     if(!campground){
         req.flash('error', 'Cannot find that campground!');
         return res.redirect('/campgrounds');
