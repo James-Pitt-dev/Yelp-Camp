@@ -228,3 +228,4 @@ populate({
 - default forms cant handle file data so set attr enctype="multi/...", create an input:f. default forms want urlencoded stuff
 - Need to install a package to parse the request body, use npm multer. This gives a middleware that appends an object to the request, this object can contain the files uploaded through the form.
 - check the docs
+- define env vars for upload bucket
