@@ -33,19 +33,33 @@
                 </div>
              
                 <div class="mb-3">    
-                    <label class="form-label" for="image">Add Images</label>
-                    <input type="file" name="image" class="form-control" id="image" multiple>
-                    <div class="valid-feedback">
-                        Looks Good!
-                    </div>
-                </div>
-                <div class="mb-3">    
                     <label class="form-label" for="description">Description</label>
                     <textarea class="form-control" type="text" id="location" name="campground[description]" required><%= campground.description %></textarea>
                     <div class="valid-feedback">
                         Looks Good!
                     </div>
                 </div>
+
+                <div class="mb-3">    
+                    <label for="formFileMultiple" class="form-label">Add Images</label>
+                    <input class="form-control" name="image" type="file" id="formFileMultiple" multiple>
+                    <div class="valid-feedback">
+                        Looks Good!
+                    </div>
+                </div>
+                <div class="row">
+            
+                    <% for(let i = 0; i < campground.images.length; i++){ %>
+                        <div class="mb-3 col-lg-4 col-md-6">
+                            <img src="<%= campground.images[i].thumbnail %>" alt="" id="<%= i %>" class="img-thumbnail">
+                            <div class="form-check-inline">
+                                <input type="checkbox" name="deleteImages[]" id="image-<%= i %>" value="<%= campground.images[i].filename %>">
+                            </div>
+                            <label for="image-<%= i %>">Delete</label>
+                        </div>
+                    <% } %>
+                
+            </div>
                 <div class="mb-3">
                     <button class="btn btn-info">Update Campground</button>
                 </div>

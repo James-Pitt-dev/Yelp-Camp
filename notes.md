@@ -229,3 +229,14 @@ populate({
 - Need to install a package to parse the request body, use npm multer. This gives a middleware that appends an object to the request, this object can contain the files uploaded through the form.
 - check the docs
 - define env vars for upload bucket
+- update models for array of images
+- update show page to loop through images
+
+### Deleting Image
+- In edit, loop through image.urls, for each create img element, checkbox input, add the i to the names/id's/values to tie them together
+- These inputs will be submitted to the update route and have the selected images values in the req.body
+- joi schema needs to add deleteImages: joi.array() to schema or it refuses it
+### Thumbnails with cloudinary api and mongodb virtual properties
+- transform the cloudinary hosted img with their api to proper w/h
+- dont want to store thumbnailed versions anywhere so mongo has a virtual property to use for this
+- 
