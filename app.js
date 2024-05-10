@@ -8,7 +8,6 @@ const path = require('path'); //Helps with file paths
 const ExpressError = require('./utils/ExpressError');
 const { campgroundSchema, reviewSchema } = require('./schemas.js');
 const methodOverride = require('method-override'); // lets you listen for PUT/DELETE requests on POST Reqs
-const morgan = require('morgan'); // logging middleware, just for fun
 const ejsMate = require('ejs-mate'); // lets you use body templates
 const session = require('express-session');
 const flash = require('connect-flash');
