@@ -32,7 +32,18 @@ const CampgroundSchema = new Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Review'
         }
-    ]
+    ],
+    geometry: {
+        type: {
+          type: String,
+          enum: ['Point'], // 'location.type' must be 'Point'
+          required: true
+        },
+        coordinates: {
+          type: [Number],
+          required: true
+        }
+      }
 });
 
 CampgroundSchema.post('findOneAndDelete', async function(doc){
