@@ -37,3 +37,18 @@ YelpCamp follows the MVC (Model-View-Controller) architectural pattern. It's a f
 
 ## Database
 The database for YelpCamp is hosted on MongoDB, a source-available cross-platform document-oriented database program. It uses JSON-like documents with optional schemas.
+
+## How to clone
+
+//Navigate to a project dir, git clone will make a yelpcamp dir there //
+
+git clone https://github.com/James-Pitt-dev/Yelp-Camp.git
+cd .\Yelp-Camp\
+npm install
+
+// Set the env variables in .env.example //
+// Then rename .env.example to just .env //
+
+// To start the server on http://127.0.0.1:3000/campgrounds //
+
+node app.js 
