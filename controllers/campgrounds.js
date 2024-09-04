@@ -12,7 +12,6 @@ module.exports.index = async (req, res) => {
 };
 
 module.exports.renderNewForm = (req, res) => {
-    console.log(mapboxToken)
     res.render('campgrounds/new');
 };
 

@@ -6,6 +6,8 @@
         zoom: 9, // starting zoom
     });
 
+    map.addControl(new mapboxgl.NavigationControl());
+
     new mapboxgl.Marker({color: "#FFAA44"})
         .setLngLat(campground.geometry.coordinates)
         .setPopup(
