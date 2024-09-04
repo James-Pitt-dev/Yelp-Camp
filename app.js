@@ -13,6 +13,7 @@ const session = require('express-session');
 const flash = require('connect-flash');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
+const mongoSanitize = require('express-mongo-sanitize');
 
 // routes
 const userRoutes = require('./routes/users');
@@ -48,13 +49,16 @@ app.set('path', path.join(__dirname, 'views'));
 app.use(express.urlencoded({extended: true})); // To parse req.body
 app.use(methodOverride('_method')); // To enable PUT/PATCH requests. Pass in string pattern we want app to watch for.
 // app.use(morgan('tiny'));
-app.use(express.static(path.join(__dirname, 'public')));  //
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(mongoSanitize());
 const sessionConfig = { //initialize session with some options
+    name: 'session',
     secret: 'test',
     resave: false,
     saveUninitialized: true,
     cookie: {
         httpOnly: true,
+        // secure: true,
         expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
         maxAge: 1000 * 60 * 60 * 24 * 7
     }
