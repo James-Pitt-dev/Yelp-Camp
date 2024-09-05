@@ -15,6 +15,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const mongoSanitize = require('express-mongo-sanitize');
 const helmet = require('helmet');
+const MongoStore = require('connect-mongo');
 
 // routes
 const userRoutes = require('./routes/users');
@@ -23,6 +24,7 @@ const reviewsRoutes = require('./routes/reviews');
 
 const User = require('./models/user.js');
 
+const secret = process.env.SECRET || 'test';
 const apiKey = process.env.API_KEY;
 const dbPassword = process.env.DATABASE_PASSWORD;
 
@@ -52,9 +54,22 @@ app.use(methodOverride('_method')); // To enable PUT/PATCH requests. Pass in str
 // app.use(morgan('tiny'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(mongoSanitize());
+
+const store = MongoStore.create({
+    mongoUrl: dbPassword,
+    touchAfter: 24*60*60,
+    crypto: {
+        secret: secret
+    }
+});
+
+store.on('error', function(e){
+    console.log('Session Store Error: ', e);
+});
 const sessionConfig = { //initialize session with some options
+    store: store,
     name: 'session',
-    secret: 'test',
+    secret: secret,
     resave: false,
     saveUninitialized: true,
     cookie: {
