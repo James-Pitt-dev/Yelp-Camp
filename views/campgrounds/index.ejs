@@ -7,9 +7,9 @@
                 <div class="row">
                     <div class="col-md-4">
                         <% if(campground.images.length){ %>
-                        <img src="<%= campground.images[0].url %>" alt="" class="img-fluid">
+                        <img crossorigin="anonymous" src="<%= campground.images[0].url %>" alt="" class="img-fluid">
                         <% } else { %> 
-                            <img src="https://res.cloudinary.com/dnyzy8xh1/image/upload/v1715288266/Yelpcamp/ouqmynpfrpyr17szvxyr.jpg" alt="" class="img-fluid">
+                            <img crossorigin="anonymous" src="https://res.cloudinary.com/dnyzy8xh1/image/upload/v1715288266/Yelpcamp/ouqmynpfrpyr17szvxyr.jpg" alt="" class="img-fluid">
                        <% } %>
                     </div>
                     <div class="col-md-8">
