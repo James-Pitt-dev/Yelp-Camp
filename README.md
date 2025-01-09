@@ -39,4 +39,17 @@ YelpCamp follows the MVC (Model-View-Controller) architectural pattern. It's a f
 ## Database
 The database for YelpCamp is hosted on MongoDB, a source-available cross-platform document-oriented database program. It uses JSON-like documents with optional schemas.
 
+### Home
+![image](https://github.com/user-attachments/assets/87e0297a-1c4e-465c-9675-b60f363226df)
+
+### Overview and Interactive Map
+![image](https://github.com/user-attachments/assets/848a3bc8-8943-4b7f-9a55-e4c99e82426a)
+
+### Campground Listings
+![image](https://github.com/user-attachments/assets/0fb67215-3497-45e5-aca0-e627fba7af0c)
+
+### User Authentication 
+![image](https://github.com/user-attachments/assets/a262bbc4-94b3-47ce-88dd-b5219ac4290e)
+
+
 
