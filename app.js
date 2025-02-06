@@ -54,7 +54,7 @@ app.use(methodOverride('_method')); // To enable PUT/PATCH requests. Pass in str
 // app.use(morgan('tiny'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(mongoSanitize());
-
+app.use(express.json());
 const store = MongoStore.create({
     mongoUrl: dbPassword,
     touchAfter: 24*60*60,
@@ -169,7 +169,11 @@ app.use((err, req, res, next) => {
     res.status(statusCode).render('errors', {err});
 })
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`App Connected: ${PORT}`);
-});
+if (process.env.NODE_ENV !== 'test') {
+    const PORT = process.env.PORT || 3000;
+    app.listen(PORT, () => {
+        console.log(`App Connected: ${PORT}`);
+    });
+}
+
+module.exports = app;

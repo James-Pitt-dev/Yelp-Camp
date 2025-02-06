@@ -13,6 +13,7 @@ module.exports.renderRegister = (req, res) => {
 
 module.exports.registerUser = async (req, res) => {  
     try {
+        console.log("Received req.body:", req.body);
         const {email, username, password} = req.body;
         const user = new User({email, username});
         const registeredUser = await User.register(user, password);
@@ -25,6 +26,7 @@ module.exports.registerUser = async (req, res) => {
             }    
         });
     } catch(e) {
+        console.error("Registration Error:", e);
         req.flash('error', e.message);
         res.redirect('register');
     }
