@@ -19,7 +19,7 @@ mapboxgl.accessToken = mapToken;
     };
 
     addProperties(campgrounds);
-    console.log(campgrounds.features[0])
+  
 
     map.on('load', () => {
         // Add a new source from our GeoJSON data and
